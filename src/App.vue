@@ -49,102 +49,102 @@
   </div>
 </template>
 <script>
-import KeyIcon from '@/components/key_icon.vue';
+import KeyIcon from '@/components/key_icon.vue'
 
 const getRandomValue = () => {
-  return crypto.getRandomValues(new Uint32Array(1))[0] / 2 ** 32;
+  return crypto.getRandomValues(new Uint32Array(1))[0] / 2 ** 32
 }
 
 const getRandomElement = (array) => {
-  return array[Math.floor(getRandomValue() * array.length)];
-};
+  return array[Math.floor(getRandomValue() * array.length)]
+}
 
 const chars = {
   upper: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split(''),
   lower: 'abcdefghijklmnopqrstuvwxyz'.split(''),
   digits: '0123456789'.split(''),
-  special_char: '~!@#$%^&*_-+?.:;'.split(''),
-};
+  special_char: '~!@#$%^&*_-+?.:;'.split('')
+}
 
 export default {
   components: { KeyIcon },
-  data() {
+  data () {
     return {
       length: 8,
       uppercase: false,
       lowercase: true,
       digits: false,
       special_char: false,
-      password: '$JKihi45656jh76^%&WQBSJA',
-    };
+      password: '$JKihi45656jh76^%&WQBSJA'
+    }
   },
   watch: {
     uppercase: {
-      handler(val) {
+      handler (val) {
         if (!this.lowercase && !this.digits && !this.special_char) {
-          this.uppercase = true;
+          this.uppercase = true
         }
-        this.generatePassword();
-      },
+        this.generatePassword()
+      }
     },
     lowercase: {
-      handler(val) {
+      handler (val) {
         if (!this.uppercase && !this.lowercase && !this.digits && !this.special_char) {
-          this.lowercase = true;
+          this.lowercase = true
         }
-        this.generatePassword();
-      },
+        this.generatePassword()
+      }
     },
     digits: {
-      handler(val) {
+      handler (val) {
         if (!this.uppercase && !this.lowercase && !this.digits && !this.special_char) {
-          this.digits = true;
+          this.digits = true
         }
-        this.generatePassword();
-      },
+        this.generatePassword()
+      }
     },
     special_char: {
-      handler(val) {
+      handler (val) {
         if (!this.uppercase && !this.lowercase && !this.digits && !this.special_char) {
-          this.special_char = true;
+          this.special_char = true
         }
-        this.generatePassword();
-      },
+        this.generatePassword()
+      }
     },
     length: {
-      handler(val) {
-        this.generatePassword();
-      },
-    },
+      handler (val) {
+        this.generatePassword()
+      }
+    }
   },
   methods: {
-    copyPassword() {
-      this.$copyText(this.password);
+    copyPassword () {
+      this.$copyText(this.password)
     },
 
-    generatePassword() {
+    generatePassword () {
       const some = {
         upper: this.uppercase,
         lower: this.lowercase,
         digits: this.digits,
-        special_char: this.special_char,
-      };
-      const flags = { upper: true, lower: true, digits: true, special_char: true, ...some };
+        special_char: this.special_char
+      }
+      const flags = { upper: true, lower: true, digits: true, special_char: true, ...some }
 
-      let charPool = [];
+      let charPool = []
       for (const key in chars) {
         if (flags[key]) {
-          charPool = [...chars[key], ...charPool];
+          charPool = [...chars[key], ...charPool]
         }
       }
 
       this.password = Array(this.length)
         .fill(null)
         .map(() => getRandomElement(charPool))
-        .join('');
-    },
-  },
-};
+        .join('')
+    }
+  }
+}
 </script>
 
 <style lang="scss">
