@@ -147,7 +147,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style>
 .container {
   max-width: 650px !important;
   margin-left: auto;
